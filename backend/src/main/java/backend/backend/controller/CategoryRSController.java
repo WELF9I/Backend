@@ -17,6 +17,7 @@ public class CategoryRSController {
 
     @Autowired
     private CategoryRepository categoryRepository;
+    @CrossOrigin(origins = "http://localhost:8081")
 
     @GetMapping(value = "/", produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<CategoryEntity> getAll() {

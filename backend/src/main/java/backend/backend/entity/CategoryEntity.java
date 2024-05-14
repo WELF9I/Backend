@@ -19,7 +19,7 @@ public class CategoryEntity {
     private String categoryName;
 
     @Lob
-    @Column(name = "categoryImage",columnDefinition = "BLOB")
+    @Column(name = "categoryImage",columnDefinition = "LONGBLOB")
     private byte[] categoryImage;
 
     public Long getIdCat() {

@@ -2,6 +2,9 @@ package backend.backend.controller;
 
 import backend.backend.entity.WelcomeEntity;
 import backend.backend.repository.WelcomeRepository;
+import backend.backend.repository.ExpenseRepository;
+import backend.backend.repository.IncomeRepository;
+import backend.backend.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -11,12 +14,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@RequestMapping("/welcomes")
+@RequestMapping("/user")
 @RestController
 public class WelcomeRSController {
 
     @Autowired
     public WelcomeRepository welcomeRepository;
+
+    @Autowired
+    public ExpenseRepository expenseRepository;
+
+    @Autowired
+    public CategoryRepository categoryRepository;
+    @Autowired
+    public IncomeRepository incomeRepository;
 
     @GetMapping(value = "/", produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<WelcomeEntity> getAll() {
@@ -47,6 +58,7 @@ public class WelcomeRSController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:8081")
     @PostMapping("/")
     public ResponseEntity<String> addWelcome(@RequestBody WelcomeEntity newWelcome) {
         welcomeRepository.save(newWelcome);
@@ -61,6 +73,19 @@ public class WelcomeRSController {
             return new ResponseEntity<>("Welcome with ID " + id + " deleted successfully", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Welcome with ID " + id + " not found", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/expenseData")
+    public ResponseEntity<List<ExpenseData>> expenseDataFetcher() {
+        try {
+            List<ExpenseData> expenseDataList = expenseRepository.fetchExpenseData();
+            if (expenseDataList.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(expenseDataList, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

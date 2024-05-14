@@ -17,15 +17,15 @@ public class ExpenseEntity {
     private Date dateExpense;
 
     @Lob
-    @Column(columnDefinition = "BLOB")
+    @Column(name="pdfFile",columnDefinition = "LONGBLOB")
     private byte[] pdfFile;
 
     @ManyToOne
-    @JoinColumn(name = "idCurr", referencedColumnName = "id")
+    @JoinColumn(name = "idUser", referencedColumnName = "id")
     private WelcomeEntity welcomeEntity;
 
     @ManyToOne
-    @JoinColumn(name = "category", referencedColumnName = "idCat")
+    @JoinColumn(name = "idCat", referencedColumnName = "idCat")
     private CategoryEntity categoryEntity;
 
     public Long getIdExp() {

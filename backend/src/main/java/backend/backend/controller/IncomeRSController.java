@@ -13,11 +13,12 @@ import java.util.Optional;
 
 @RequestMapping("/incomes")
 @RestController
+
 public class IncomeRSController {
 
     @Autowired
     private IncomeRepository incomeRepository;
-
+    @CrossOrigin(origins = "http://localhost:8081")
     @GetMapping(value = "/", produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<IncomeEntity> getAll() {
         return incomeRepository.findAll();

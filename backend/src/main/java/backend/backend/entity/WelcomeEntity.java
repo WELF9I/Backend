@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "welcome")
+@Table(name = "user")
 public class WelcomeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +18,7 @@ public class WelcomeEntity {
     private String name;
 
     @Lob
-    @Column(name = "logo")
+    @Column(name = "logo", columnDefinition = "LONGBLOB")
     private byte[] logo;
 
     @NotEmpty(message = "Main currency cannot be empty")

@@ -13,11 +13,12 @@ import java.util.Optional;
 
 @RequestMapping("/expenses")
 @RestController
+
 public class ExpenseRSController {
 
     @Autowired
     public ExpenseRepository expenseRepository;
-
+    @CrossOrigin(origins = "http://localhost:8081")
     @GetMapping(value = "/", produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<ExpenseEntity> getAll() {
         return expenseRepository.findAll();
